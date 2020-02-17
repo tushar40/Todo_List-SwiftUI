@@ -92,9 +92,17 @@ class TodoListModel: ObservableObject {
         }
     }
     
-    func importCSV(fileURL: URL, completion: @escaping (Result< ListDocument, Error>) -> Void) {
+    func importCSV(fileURL: URL, completion: @escaping (Bool) -> Void) {
         csvPorter.importFile(fileUrl: fileURL) { result in
-            completion(result)
+            switch result {
+            case .success(let list):
+                print("Successfully imported: ", list)
+                self.saveToMemory { _ in
+                    //
+                }
+            case .failure(let error):
+                print("Error importing file: ", error)
+            }
         }
     }
     

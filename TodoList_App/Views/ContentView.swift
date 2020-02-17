@@ -12,6 +12,8 @@ struct ContentView: View {
     
     @EnvironmentObject var todoListModel: TodoListModel
     @State var newListDocument = ""
+    @State var isPresented = false
+    @State var importURL: URL? = nil
     
     var body: some View {
         NavigationView {
@@ -49,6 +51,15 @@ struct ContentView: View {
                 }),
                 trailing: EditButton()
             )
+                .sheet(isPresented: $isPresented, onDismiss: {
+                    if let _importURL = self.importURL {
+                        self.todoListModel.importCSV(fileURL: _importURL) { imported in
+                            print("Import result = ", imported)
+                        }
+                    }
+                }) {
+                    DocumentPicker(isPresented: self.$isPresented, importURL: self.$importURL)
+            }
         }
     }
     
@@ -64,7 +75,7 @@ struct ContentView: View {
     }
     
     private func importDocument() {
-        
+        isPresented = true
     }
     
     private func delete(at offsets: IndexSet) {

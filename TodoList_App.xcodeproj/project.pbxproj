@@ -24,6 +24,7 @@
 		ED3C103B23F6DAD800A275A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103823F6DAD800A275A6 /* ContentView.swift */; };
 		ED3C103D23F6DAE800A275A6 /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103C23F6DAE800A275A6 /* CSVError.swift */; };
 		ED46B6FF23FA84C600501AC0 /* EditOrCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */; };
+		ED46B70223FAD73700501AC0 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		ED3C103823F6DAD800A275A6 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ED3C103C23F6DAE800A275A6 /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVError.swift; sourceTree = "<group>"; };
 		ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrCreateView.swift; sourceTree = "<group>"; };
+		ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				ED3C102F23F6DAC900A275A6 /* Managers */,
 				ED3C103223F6DAD300A275A6 /* ViewModels */,
 				ED3C103523F6DAD800A275A6 /* Views */,
+				ED46B70323FAD73F00501AC0 /* ViewControllers */,
 				ED3C0FF723F6DAA000A275A6 /* AppDelegate.swift */,
 				ED3C0FF923F6DAA000A275A6 /* SceneDelegate.swift */,
 				ED3C100023F6DAA200A275A6 /* Assets.xcassets */,
@@ -201,6 +204,14 @@
 				ED3C103C23F6DAE800A275A6 /* CSVError.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		ED46B70323FAD73F00501AC0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +348,7 @@
 				ED3C102E23F6DAC300A275A6 /* CSVPorter.swift in Sources */,
 				ED3C103B23F6DAD800A275A6 /* ContentView.swift in Sources */,
 				ED3C103423F6DAD300A275A6 /* TodoListModel.swift in Sources */,
+				ED46B70223FAD73700501AC0 /* DocumentPickerViewController.swift in Sources */,
 				ED46B6FF23FA84C600501AC0 /* EditOrCreateView.swift in Sources */,
 				ED3C103A23F6DAD800A275A6 /* TodoListView.swift in Sources */,
 				ED3C0FF823F6DAA000A275A6 /* AppDelegate.swift in Sources */,
