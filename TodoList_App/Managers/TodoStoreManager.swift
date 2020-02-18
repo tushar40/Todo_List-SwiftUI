@@ -73,7 +73,7 @@ class TodoStoreManager {
         return todoItemArray ?? []
     }
     
-    func insertTodoItemInList(list: ListDocument, id: UUID = UUID(), title: String, isPending: Bool = true, dueDate: Date) -> TodoItem? {
+    func insertTodoItemInList(list: ListDocument, id: UUID = UUID(), title: String, isPending: Bool, dueDate: Date) -> TodoItem? {
         guard let _backgroundContext = backGroundContext else {
                 return nil
         }

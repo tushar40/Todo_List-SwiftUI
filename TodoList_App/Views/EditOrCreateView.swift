@@ -58,7 +58,7 @@ struct EditOrCreateView: View {
                 }
             }
         } else {
-            todoListModel.addTodoListItem(list: list, title: todoItemTitle, dueDate: todoItemDueDate) { savedTodoItem in
+            todoListModel.addTodoListItem(list: list, title: todoItemTitle, dueDate: todoItemDueDate, isPending: todoItemIsPending) { savedTodoItem in
                 if let _savedTodoItem = savedTodoItem {
                     self.todoItem = _savedTodoItem
                     self.isPresented = false

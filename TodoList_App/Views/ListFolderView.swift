@@ -15,7 +15,7 @@ struct ListFolderView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "folder")
+            Image("folder")
                 .padding()
             NavigationLink(destination: TodoListView(folder: $folder).environmentObject(todoListModel)) {
                 Text("\(folder.name ?? "deleting...")")

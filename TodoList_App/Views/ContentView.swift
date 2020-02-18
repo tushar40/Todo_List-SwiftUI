@@ -54,7 +54,7 @@ struct ContentView: View {
                 .sheet(isPresented: $isPresented, onDismiss: {
                     if let _importURL = self.importURL {
                         self.todoListModel.importCSV(fileURL: _importURL) { imported in
-                            print("Import result = ", imported)
+                            print("Import = ", imported)
                         }
                     }
                 }) {

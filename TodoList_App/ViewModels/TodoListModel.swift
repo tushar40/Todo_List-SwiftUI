@@ -45,8 +45,8 @@ class TodoListModel: ObservableObject {
         fetchAllItemFolders()
     }
     
-    func addTodoListItem(list: ListDocument, title: String, dueDate: Date, completion: @escaping (TodoItem?) -> Void) {
-        let item = todoStoreManager.insertTodoItemInList(list: list, title: title, dueDate: dueDate)
+    func addTodoListItem(list: ListDocument, title: String, dueDate: Date, isPending: Bool, completion: @escaping (TodoItem?) -> Void) {
+        let item = todoStoreManager.insertTodoItemInList(list: list, title: title, isPending: isPending, dueDate: dueDate)
         fetchTodoItems(for: list)
         completion(item)
     }

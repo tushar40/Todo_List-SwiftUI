@@ -20,12 +20,11 @@ struct TodoListView: View {
                     Section(header: Text("To-Do Items")) {
                         ForEach(self.todoListModel.todoListDictionary[folder.id ?? UUID()] ?? []) { item in
                             HStack {
-                                Image(systemName: "square.and.pencil")
+                                Image("\(item.isPending ? "pending": "checkmark")")
+                                ////Image(systemName: "square.and.pencil")
                                 Text(String(describing: item.title!))
                                 Spacer()
                                 Text(self.todoListModel.formatDate(date: item.dueDate!))
-                                Spacer()
-                                Text("\(item.isPending ? "Pending" : "Done")")
                                 }
                             .padding()
                             .onTapGesture(count: 1) {
@@ -64,7 +63,7 @@ struct TodoListView: View {
         .sheet(isPresented: $isPresented) {
             EditOrCreateView(list: self.$folder, isPresented: self.$isPresented, todoItem: self.itemTapped ).environmentObject(self.todoListModel)
         }
-        .navigationBarTitle(Text("\(folder.name!)"))
+        .navigationBarTitle(Text("\(folder.name ?? "")"))
         .navigationBarItems(trailing: Button(action: {
             self.exportList()
         }, label: {
@@ -83,6 +82,7 @@ struct TodoListView: View {
             todoListModel.deleteItem(todoItem: todoListModel.todoListDictionary[folder.id!]![index])
         }
     }
+    
 }
 
 //struct TodoListView_Previews: PreviewProvider {
