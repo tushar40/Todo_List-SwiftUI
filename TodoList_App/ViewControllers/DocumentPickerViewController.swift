@@ -12,6 +12,7 @@ import MobileCoreServices
 
 struct DocumentPicker: UIViewControllerRepresentable {
     
+    @EnvironmentObject var todoListModel: TodoListModel
     @Binding var isPresented: Bool
     @Binding var importURL: URL?
 
@@ -43,6 +44,11 @@ struct DocumentPicker: UIViewControllerRepresentable {
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
             print(urls)
             parent.importURL = urls.first
+            if let fileURL = parent.importURL {
+                parent.todoListModel.importCSV(fileURL: fileURL) {imported in
+                    print("Import = ", imported)
+                }
+            }
             parent.isPresented = false
         }
         

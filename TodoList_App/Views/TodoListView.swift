@@ -12,6 +12,7 @@ struct TodoListView: View {
     @EnvironmentObject var todoListModel: TodoListModel
     @Binding var folder: ListDocument
     @State var isPresented = false
+    @State var presentAlert = false
     @State var itemTapped: TodoItem? = nil
     
     var body: some View {
@@ -69,11 +70,17 @@ struct TodoListView: View {
         }, label: {
             Text("Export")
         }))
+            .alert(isPresented: $presentAlert) {
+                Alert(title: Text("Exported successfully"), message: nil, dismissButton: .default(Text("Got it!")))
+        }
     }
     
     private func exportList() {
         todoListModel.exportToCSV(list: folder) { error in
             print("Exporting: error: ", error)
+            if error == nil {
+                self.presentAlert = true
+            }
         }
     }
     

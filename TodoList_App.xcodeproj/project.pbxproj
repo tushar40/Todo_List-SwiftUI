@@ -19,7 +19,6 @@
 		ED3C102E23F6DAC300A275A6 /* CSVPorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C102C23F6DAC200A275A6 /* CSVPorter.swift */; };
 		ED3C103123F6DAC900A275A6 /* TodoStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103023F6DAC900A275A6 /* TodoStoreManager.swift */; };
 		ED3C103423F6DAD300A275A6 /* TodoListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103323F6DAD300A275A6 /* TodoListModel.swift */; };
-		ED3C103923F6DAD800A275A6 /* ListFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103623F6DAD800A275A6 /* ListFolderView.swift */; };
 		ED3C103A23F6DAD800A275A6 /* TodoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103723F6DAD800A275A6 /* TodoListView.swift */; };
 		ED3C103B23F6DAD800A275A6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103823F6DAD800A275A6 /* ContentView.swift */; };
 		ED3C103D23F6DAE800A275A6 /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103C23F6DAE800A275A6 /* CSVError.swift */; };
@@ -63,7 +62,6 @@
 		ED3C102C23F6DAC200A275A6 /* CSVPorter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVPorter.swift; sourceTree = "<group>"; };
 		ED3C103023F6DAC900A275A6 /* TodoStoreManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoStoreManager.swift; sourceTree = "<group>"; };
 		ED3C103323F6DAD300A275A6 /* TodoListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListModel.swift; sourceTree = "<group>"; };
-		ED3C103623F6DAD800A275A6 /* ListFolderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListFolderView.swift; sourceTree = "<group>"; };
 		ED3C103723F6DAD800A275A6 /* TodoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoListView.swift; sourceTree = "<group>"; };
 		ED3C103823F6DAD800A275A6 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ED3C103C23F6DAE800A275A6 /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVError.swift; sourceTree = "<group>"; };
@@ -190,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				ED3C103823F6DAD800A275A6 /* ContentView.swift */,
-				ED3C103623F6DAD800A275A6 /* ListFolderView.swift */,
 				ED3C103723F6DAD800A275A6 /* TodoListView.swift */,
 				ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */,
 			);
@@ -352,7 +349,6 @@
 				ED46B6FF23FA84C600501AC0 /* EditOrCreateView.swift in Sources */,
 				ED3C103A23F6DAD800A275A6 /* TodoListView.swift in Sources */,
 				ED3C0FF823F6DAA000A275A6 /* AppDelegate.swift in Sources */,
-				ED3C103923F6DAD800A275A6 /* ListFolderView.swift in Sources */,
 				ED3C0FFA23F6DAA000A275A6 /* SceneDelegate.swift in Sources */,
 				ED3C103D23F6DAE800A275A6 /* CSVError.swift in Sources */,
 				ED3C102D23F6DAC300A275A6 /* CoreData+identifiable.swift in Sources */,

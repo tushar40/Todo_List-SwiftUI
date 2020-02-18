@@ -98,7 +98,7 @@ class TodoListModel: ObservableObject {
             case .success(let list):
                 print("Successfully imported: ", list)
                 self.saveToMemory { _ in
-                    //
+                    self.fetchAllItemFolders()
                 }
             case .failure(let error):
                 print("Error importing file: ", error)

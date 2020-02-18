@@ -29,10 +29,13 @@ class CSVPorter {
     func exportToFile(list: ListDocument, items: [TodoItem], completion: @escaping (Error?) -> Void) {
         let exportString = createExportString(items: items)
         var exportFilePath = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        exportFilePath = exportFilePath.appendingPathComponent("\(String(describing: list.name))-\(String(describing: list.id!.uuidString)).csv")
-        
+        exportFilePath = exportFilePath.appendingPathComponent("\(list.name!)_\(list.id!.uuidString).csv")
+        print("Path to export file: ", exportFilePath)
         do {
-            try exportString.write(to: exportFilePath, atomically: true, encoding: .utf8)
+            let data = exportString.data(using: .utf8)
+            fileManager.createFile(atPath: exportFilePath.path, contents: data)
+            let contents = try String(contentsOf: exportFilePath)
+            print("File string: \n", contents)
             completion(nil)
         } catch {
             print("Error writing the file: ", error)
@@ -43,9 +46,9 @@ class CSVPorter {
     func importFile(fileUrl: URL, completion: @escaping (Result<ListDocument, Error>) -> Void) {
         do {
             let contents = try String(contentsOf: fileUrl)
-            let listTitleAndID = fileUrl.lastPathComponent.split(separator: "-").map({ String($0) })
+            let listTitleAndID = fileUrl.lastPathComponent.split(separator: "_").map({ String($0) })
             let listTitle = listTitleAndID[0]
-            let uuidString = listTitleAndID[1]
+            let uuidString = listTitleAndID[1].split(separator: ".").map({ String($0) })[0]
             let contentArray = getTodoItemStrings(fromString: contents)
             
             let list = todoStoreManager.createList(title: listTitle)
@@ -62,14 +65,18 @@ class CSVPorter {
                     let item = todoStoreManager.insertTodoItemInList(list: _list, id: UUID(), title: row[1], isPending: row[2] == "true", dueDate: _dueDate)
                     if let _item = item {
                         items.append(_item)
+                        _list.addToTodoItem(_item)
+                        _item.listDocument = _list
                     }
                 } else {
                     print("Error getting date: ",CSVError.IllFormatedDateError.rawValue)
                 }
             }
+            print("Imported file: \n", _list)
+            print("Todo Items: \n", items)
             return completion(.success(_list))
         } catch {
-            print("Error getting the contents of the file")
+            print("Error getting the contents of the file, error: ", error)
             completion(.failure(CSVError.ImportError))
         }
     }
@@ -106,7 +113,7 @@ class CSVPorter {
             dueDate = item.dueDate!
             let dueDateString = formatDate(date: dueDate)
             
-            exportString = "\n\(exportString),\(id.uuidString),\(title),\(isPending),\(dueDateString)"
+            exportString = "\(exportString)\n\(id.uuidString),\(title),\(isPending),\(dueDateString)"
         }
         
         return exportString

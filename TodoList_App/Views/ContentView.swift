@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var todoListModel: TodoListModel
     @State var newListDocument = ""
     @State var isPresented = false
+    @State var presentAlert = false
     @State var importURL: URL? = nil
     
     var body: some View {
@@ -34,7 +35,16 @@ struct ContentView: View {
                     .font(.headline)
                     Section(header: Text("Documents")) {
                         ForEach(self.todoListModel.folderLists) { list in
-                            ListFolderView(folder: list).environmentObject(self.todoListModel)
+                            HStack {
+                                Image("folder")
+                                    .padding()
+                                NavigationLink(destination: TodoListView(folder: self.$todoListModel.folderLists[self.todoListModel.folderLists.firstIndex(of: list)!]).environmentObject(self.todoListModel)) {
+                                    Text("\(list.name ?? "")")
+                                }
+                                .padding()
+                                Spacer()
+                            }
+                            ////ListFolderView(index: self.todoListModel.folderLists.firstIndex(of: list)!).environmentObject(self.todoListModel)
                         }
                         .onDelete(perform: delete)
                     }
@@ -51,14 +61,11 @@ struct ContentView: View {
                 }),
                 trailing: EditButton()
             )
-                .sheet(isPresented: $isPresented, onDismiss: {
-                    if let _importURL = self.importURL {
-                        self.todoListModel.importCSV(fileURL: _importURL) { imported in
-                            print("Import = ", imported)
-                        }
-                    }
-                }) {
-                    DocumentPicker(isPresented: self.$isPresented, importURL: self.$importURL)
+                .sheet(isPresented: $isPresented) {
+                    DocumentPicker(isPresented: self.$isPresented, importURL: self.$importURL).environmentObject(self.todoListModel)
+            }
+            .alert(isPresented: $presentAlert) {
+                Alert(title: Text("Couldn't create"), message: Text("No name for folder given"), dismissButton: .default(Text("OK")))
             }
         }
     }
@@ -71,6 +78,8 @@ struct ContentView: View {
                 }
                 print("created folder = ",created)
             }
+        } else {
+            presentAlert = true
         }
     }
     
