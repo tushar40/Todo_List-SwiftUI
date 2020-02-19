@@ -17,6 +17,7 @@ class TodoListModel: ObservableObject {
     
     private let todoStoreManager = TodoStoreManager.shared
     private let csvPorter = CSVPorter.shared
+    private let notificationManager = NotificationManager.shared
     
     static let shared = TodoListModel()
     
@@ -47,6 +48,9 @@ class TodoListModel: ObservableObject {
     
     func addTodoListItem(list: ListDocument, title: String, dueDate: Date, isPending: Bool, completion: @escaping (TodoItem?) -> Void) {
         let item = todoStoreManager.insertTodoItemInList(list: list, title: title, isPending: isPending, dueDate: dueDate)
+        if let _item = item {
+            notificationManager.scheduleNotification(todoItem: _item)
+        }
         fetchTodoItems(for: list)
         completion(item)
     }
@@ -62,20 +66,28 @@ class TodoListModel: ObservableObject {
             item.dueDate = _dueDate
         }
         saveToMemory { [weak self] saved in
+            guard let self = self else { return }
             print("Editing saved = ", saved)
-            self?.fetchTodoItems(for: list)
+            self.notificationManager.removeNotification(id: item.id!.uuidString)
+            self.notificationManager.scheduleNotification(todoItem: item)
+            self.fetchTodoItems(for: list)
             completion(saved)
         }
     }
     
     func deleteItem(todoItem: TodoItem? = nil, list: ListDocument? = nil) {
         if let _todoItem = todoItem {
+            notificationManager.removeNotification(id: _todoItem.id!.uuidString)
             todoStoreManager.removeItem(itemID: _todoItem.objectID) { deleted in
                 if deleted {
                     self.fetchAllItemFolders()
                 }
             }
         } else if let _list = list {
+            let associatedTodoItems = todoStoreManager.getTodoItem(for: _list)
+            for todoItem in associatedTodoItems {
+                notificationManager.removeNotification(id: todoItem.id!.uuidString)
+            }
             todoStoreManager.removeItem(itemID: _list.objectID) { [unowned self] deleted in
                 if deleted {
                     self.fetchAllItemFolders()
@@ -93,7 +105,7 @@ class TodoListModel: ObservableObject {
     }
     
     func importCSV(fileURL: URL, completion: @escaping (Bool) -> Void) {
-        csvPorter.importFile(fileUrl: fileURL) { result in
+        csvPorter.importFile(fileUrl: fileURL, folderList: folderLists) { result in
             switch result {
             case .success(let list):
                 print("Successfully imported: ", list)

@@ -13,4 +13,5 @@ enum CSVError: String, Error {
     case ExportError = "Error exporting the file to CSV"
     case IllFormatedDateError = "Date is not in specified format"
     case MemoryNotAllocatedError = "Unable to allocate memory for the object"
+    case DocumentAlreadyExists = "Import document already exists"
 }

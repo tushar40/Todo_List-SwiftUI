@@ -22,7 +22,8 @@ struct ContentView: View {
                 List {
                     Section(header: Text("Add a new Document?")) {
                         HStack {
-                            TextField("new Document", text: $newListDocument)
+                            TextField("new Document", text: $newListDocument).textContentType(.givenName)
+                            Spacer()
                             Button(action: {
                                 self.addFolder()
                             }) {
@@ -44,11 +45,11 @@ struct ContentView: View {
                                 .padding()
                                 Spacer()
                             }
-                            ////ListFolderView(index: self.todoListModel.folderLists.firstIndex(of: list)!).environmentObject(self.todoListModel)
                         }
                         .onDelete(perform: delete)
                     }
                 }
+                .listStyle(GroupedListStyle())
             }.onAppear{
                 self.todoListModel.fetchAllItemFolders()
             }
@@ -89,7 +90,8 @@ struct ContentView: View {
     
     private func delete(at offsets: IndexSet) {
         if let index = offsets.first {
-            todoListModel.deleteItem(list: todoListModel.folderLists[index])
+            let list = todoListModel.folderLists[index]
+            todoListModel.deleteItem(list: list)
         }
     }
 }

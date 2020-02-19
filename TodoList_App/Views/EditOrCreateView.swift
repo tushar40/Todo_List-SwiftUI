@@ -16,13 +16,14 @@ struct EditOrCreateView: View {
     
     @State var todoItem: TodoItem? = nil
     @State var todoItemTitle = ""
-    @State var todoItemIsPending = false
+    @State var todoItemIsPending = true
     @State var todoItemDueDate = Date()
     
     var body: some View {
         VStack {
             TextField("new Title", text: $todoItemTitle)
             .padding()
+            .border(Color.black)
             
             Toggle(isOn: $todoItemIsPending) {
                 Text("Pending")

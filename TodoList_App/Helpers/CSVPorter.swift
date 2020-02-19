@@ -43,7 +43,7 @@ class CSVPorter {
         }
     }
     
-    func importFile(fileUrl: URL, completion: @escaping (Result<ListDocument, Error>) -> Void) {
+    func importFile(fileUrl: URL, folderList: [ListDocument], completion: @escaping (Result<ListDocument, Error>) -> Void) {
         do {
             let contents = try String(contentsOf: fileUrl)
             let listTitleAndID = fileUrl.lastPathComponent.split(separator: "_").map({ String($0) })
@@ -51,6 +51,10 @@ class CSVPorter {
             let uuidString = listTitleAndID[1].split(separator: ".").map({ String($0) })[0]
             let contentArray = getTodoItemStrings(fromString: contents)
             
+            if let _ = folderList.map({ $0.name! }).firstIndex(of: listTitle) {
+                completion(.failure(CSVError.DocumentAlreadyExists))
+                return
+            }
             let list = todoStoreManager.createList(title: listTitle)
             guard let _list = list else {
                 completion(.failure(CSVError.MemoryNotAllocatedError))

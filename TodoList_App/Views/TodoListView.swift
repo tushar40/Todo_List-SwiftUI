@@ -35,6 +35,10 @@ struct TodoListView: View {
                         }
                         .onDelete(perform: delete)
                     }
+                    .onTapGesture(count: 1) {
+                        self.itemTapped = nil
+                        self.isPresented = true
+                    }
                 }
             VStack {
                 Spacer()

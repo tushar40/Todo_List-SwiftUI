@@ -24,6 +24,7 @@
 		ED3C103D23F6DAE800A275A6 /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103C23F6DAE800A275A6 /* CSVError.swift */; };
 		ED46B6FF23FA84C600501AC0 /* EditOrCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */; };
 		ED46B70223FAD73700501AC0 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */; };
+		EDAB47AD23FC23B60093CC9C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB47AC23FC23B60093CC9C /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		ED3C103C23F6DAE800A275A6 /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVError.swift; sourceTree = "<group>"; };
 		ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrCreateView.swift; sourceTree = "<group>"; };
 		ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
+		EDAB47AC23FC23B60093CC9C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +173,7 @@
 		ED3C102F23F6DAC900A275A6 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				EDAB47AC23FC23B60093CC9C /* NotificationManager.swift */,
 				ED3C103023F6DAC900A275A6 /* TodoStoreManager.swift */,
 			);
 			path = Managers;
@@ -354,6 +357,7 @@
 				ED3C102D23F6DAC300A275A6 /* CoreData+identifiable.swift in Sources */,
 				ED3C103123F6DAC900A275A6 /* TodoStoreManager.swift in Sources */,
 				ED3C0FFD23F6DAA000A275A6 /* TodoList_App.xcdatamodeld in Sources */,
+				EDAB47AD23FC23B60093CC9C /* NotificationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
