@@ -11,7 +11,7 @@ import SwiftUI
 struct EditOrCreateView: View {
     
     @EnvironmentObject var todoListModel: TodoListModel
-    @Binding var list: ListDocument
+    let list: ListDocument
     @Binding var isPresented: Bool
     
     @State var todoItem: TodoItem? = nil

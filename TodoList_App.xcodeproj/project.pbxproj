@@ -24,7 +24,9 @@
 		ED3C103D23F6DAE800A275A6 /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3C103C23F6DAE800A275A6 /* CSVError.swift */; };
 		ED46B6FF23FA84C600501AC0 /* EditOrCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */; };
 		ED46B70223FAD73700501AC0 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */; };
+		EDA292BC23FD3B8C0024F607 /* DismissingKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA292BB23FD3B8C0024F607 /* DismissingKeyboard.swift */; };
 		EDAB47AD23FC23B60093CC9C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAB47AC23FC23B60093CC9C /* NotificationManager.swift */; };
+		EDAFEE5223FD60BF0007929B /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDAFEE5123FD60BF0007929B /* CustomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +70,9 @@
 		ED3C103C23F6DAE800A275A6 /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVError.swift; sourceTree = "<group>"; };
 		ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditOrCreateView.swift; sourceTree = "<group>"; };
 		ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
+		EDA292BB23FD3B8C0024F607 /* DismissingKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissingKeyboard.swift; sourceTree = "<group>"; };
 		EDAB47AC23FC23B60093CC9C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		EDAFEE5123FD60BF0007929B /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 				ED3C103223F6DAD300A275A6 /* ViewModels */,
 				ED3C103523F6DAD800A275A6 /* Views */,
 				ED46B70323FAD73F00501AC0 /* ViewControllers */,
+				EDA292BD23FD3BBE0024F607 /* ViewModifiers */,
 				ED3C0FF723F6DAA000A275A6 /* AppDelegate.swift */,
 				ED3C0FF923F6DAA000A275A6 /* SceneDelegate.swift */,
 				ED3C100023F6DAA200A275A6 /* Assets.xcassets */,
@@ -193,6 +198,7 @@
 				ED3C103823F6DAD800A275A6 /* ContentView.swift */,
 				ED3C103723F6DAD800A275A6 /* TodoListView.swift */,
 				ED46B6FE23FA84C600501AC0 /* EditOrCreateView.swift */,
+				EDAFEE5123FD60BF0007929B /* CustomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,6 +218,14 @@
 				ED46B70123FAD73700501AC0 /* DocumentPickerViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		EDA292BD23FD3BBE0024F607 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				EDA292BB23FD3B8C0024F607 /* DismissingKeyboard.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,6 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDAFEE5223FD60BF0007929B /* CustomView.swift in Sources */,
 				ED3C102E23F6DAC300A275A6 /* CSVPorter.swift in Sources */,
 				ED3C103B23F6DAD800A275A6 /* ContentView.swift in Sources */,
 				ED3C103423F6DAD300A275A6 /* TodoListModel.swift in Sources */,
@@ -356,6 +371,7 @@
 				ED3C103D23F6DAE800A275A6 /* CSVError.swift in Sources */,
 				ED3C102D23F6DAC300A275A6 /* CoreData+identifiable.swift in Sources */,
 				ED3C103123F6DAC900A275A6 /* TodoStoreManager.swift in Sources */,
+				EDA292BC23FD3B8C0024F607 /* DismissingKeyboard.swift in Sources */,
 				ED3C0FFD23F6DAA000A275A6 /* TodoList_App.xcdatamodeld in Sources */,
 				EDAB47AD23FC23B60093CC9C /* NotificationManager.swift in Sources */,
 			);

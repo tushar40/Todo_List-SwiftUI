@@ -12,8 +12,6 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -78,5 +76,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+}
+
+//MARK:- Extension UIApplication+endEditing
+
+extension UIApplication {
+
+    func endEditing() {
+//        UIApplication.shared.resignFirstResponder()
+        sendAction(#selector(UIApplication.shared.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
 }
 

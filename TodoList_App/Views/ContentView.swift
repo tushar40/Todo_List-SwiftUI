@@ -22,7 +22,8 @@ struct ContentView: View {
                 List {
                     Section(header: Text("Add a new Document?")) {
                         HStack {
-                            TextField("new Document", text: $newListDocument).textContentType(.givenName)
+//                        CustomView(presentAlert: $presentAlert)
+                            TextField("New Document", text: $newListDocument, onCommit: addFolder)
                             Spacer()
                             Button(action: {
                                 self.addFolder()
@@ -33,13 +34,14 @@ struct ContentView: View {
                             }
                         }
                     }
+                    .buttonStyle(BorderlessButtonStyle())
                     .font(.headline)
                     Section(header: Text("Documents")) {
                         ForEach(self.todoListModel.folderLists) { list in
                             HStack {
                                 Image("folder")
                                     .padding()
-                                NavigationLink(destination: TodoListView(folder: self.$todoListModel.folderLists[self.todoListModel.folderLists.firstIndex(of: list)!]).environmentObject(self.todoListModel)) {
+                                NavigationLink(destination: TodoListView(folder: self.todoListModel.folderLists.firstIndex(of: list) != nil ? self.todoListModel.folderLists[self.todoListModel.folderLists.firstIndex(of: list)!]: nil ).environmentObject(self.todoListModel)) {
                                     Text("\(list.name ?? "")")
                                 }
                                 .padding()
@@ -50,7 +52,8 @@ struct ContentView: View {
                     }
                 }
                 .listStyle(GroupedListStyle())
-            }.onAppear{
+            }
+            .onAppear{
                 self.todoListModel.fetchAllItemFolders()
             }
             .navigationBarTitle(Text("To-do List App"))
@@ -79,11 +82,15 @@ struct ContentView: View {
                 }
                 print("created folder = ",created)
             }
+            
+//            UIApplication.shared.endEditing()
+            UIApplication.shared.resignFirstResponder()
+
         } else {
             presentAlert = true
         }
     }
-    
+
     private func importDocument() {
         isPresented = true
     }

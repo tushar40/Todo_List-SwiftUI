@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TodoListView: View {
     @EnvironmentObject var todoListModel: TodoListModel
-    @Binding var folder: ListDocument
+    let folder: ListDocument?
     @State var isPresented = false
     @State var presentAlert = false
     @State var itemTapped: TodoItem? = nil
@@ -19,7 +19,7 @@ struct TodoListView: View {
         ZStack {
                 List {
                     Section(header: Text("To-Do Items")) {
-                        ForEach(self.todoListModel.todoListDictionary[folder.id ?? UUID()] ?? []) { item in
+                        ForEach(self.todoListModel.todoListDictionary[folder?.id ?? UUID()] ?? []) { item in
                             HStack {
                                 Image("\(item.isPending ? "pending": "checkmark")")
                                 ////Image(systemName: "square.and.pencil")
@@ -47,7 +47,7 @@ struct TodoListView: View {
                     
                     Button(action: {
                         self.itemTapped = nil
-                        self.isPresented = true
+                        self.addItem()
                     }, label: {
                         Text("+")
                             .font(.system(.largeTitle))
@@ -66,9 +66,11 @@ struct TodoListView: View {
             }
         }
         .sheet(isPresented: $isPresented) {
-            EditOrCreateView(list: self.$folder, isPresented: self.$isPresented, todoItem: self.itemTapped ).environmentObject(self.todoListModel)
+            if self.folder != nil {
+            EditOrCreateView(list: self.folder!, isPresented: self.$isPresented, todoItem: self.itemTapped ).environmentObject(self.todoListModel)
+            }
         }
-        .navigationBarTitle(Text("\(folder.name ?? "")"))
+        .navigationBarTitle(Text("\(folder?.name ?? "")"))
         .navigationBarItems(trailing: Button(action: {
             self.exportList()
         }, label: {
@@ -79,8 +81,18 @@ struct TodoListView: View {
         }
     }
     
+    private func addItem() {
+        todoListModel.addTodoListItem(list: folder!, title: "new Item", dueDate: Date(), isPending: true) { savedTodoItem in
+            if let _savedTodoItem = savedTodoItem {
+                print(_savedTodoItem)
+            } else {
+                print("Not able to allocate todoItem")
+            }
+        }
+    }
+    
     private func exportList() {
-        todoListModel.exportToCSV(list: folder) { error in
+        todoListModel.exportToCSV(list: folder!) { error in
             print("Exporting: error: ", error)
             if error == nil {
                 self.presentAlert = true
@@ -90,7 +102,7 @@ struct TodoListView: View {
     
     private func delete(at offsets: IndexSet) {
         if let index = offsets.first {
-            todoListModel.deleteItem(todoItem: todoListModel.todoListDictionary[folder.id!]![index])
+            todoListModel.deleteItem(todoItem: todoListModel.todoListDictionary[folder!.id!]![index])
         }
     }
     
