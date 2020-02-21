@@ -7,12 +7,19 @@
 //
 
 import Foundation
+import SwiftUI
 import UserNotifications
 import UIKit.UIImage
+
+fileprivate struct NotificationAction {
+    static let openAction = "Open_Action"
+    static let markAsDoneAction = "Mark_As_Done_Action"
+}
 
 class NotificationManager: NSObject {
     
     //MARK:- Property Variables
+    
     private let notificationCenter = UNUserNotificationCenter.current()
     static var shared = NotificationManager()
     
@@ -36,13 +43,21 @@ class NotificationManager: NSObject {
         }
     }
     
-    func scheduleNotification(todoItem: TodoItem) {
+    func scheduleNotification(todoItem: TodoItem, list: ListDocument) {
         notificationCenter.getNotificationSettings { settings in
             if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+                
+                let openAction = UNNotificationAction(identifier: NotificationAction.openAction, title: "Open App", options: [.foreground])
+                let markAsDoneAction = UNNotificationAction(identifier: NotificationAction.markAsDoneAction, title: "Mark as Done", options: [])
+                
+                let notificationCategory = UNNotificationCategory(identifier: todoItem.id!.uuidString, actions: [openAction, markAsDoneAction], intentIdentifiers: [], options: [])
+                
+                self.notificationCenter.setNotificationCategories([notificationCategory])
+                
                 let content = UNMutableNotificationContent()
-                content.title = todoItem.title!
+                content.title = list.name!
                 content.body = "Deadline for \(todoItem.title!) reached"
-                content.categoryIdentifier = "TIMER_EXPIRED"
+                content.categoryIdentifier = todoItem.id!.uuidString //"TIMER_EXPIRED"
                 content.sound = .default
                        
                 let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: todoItem.dueDate!)
@@ -75,5 +90,69 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
         print("Got the notification in foreground")
         
         completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let application = UIApplication.shared
+
+        print("Notification bar tapped when app state was: ", application.applicationState.rawValue)
+        
+        switch response.actionIdentifier {
+        case NotificationAction.openAction:
+            let scene = UIApplication.shared.connectedScenes.first
+
+            if let sd : SceneDelegate = (scene?.delegate as? SceneDelegate) {
+                // Use a UIHostingController as window root view controller.
+                sd.setUpRootScene()
+            }
+            
+            completionHandler()
+        case NotificationAction.markAsDoneAction:
+            let id = response.notification.request.identifier
+            
+            let todoItems = TodoStoreManager.shared.fetchAllTodos()
+                        
+            for item in todoItems {
+                if item.id!.uuidString == id {
+                    item.isPending = false
+                    TodoStoreManager.shared.save { _ in
+                        print("Item saved")
+                    }
+                    break
+                }
+            }
+            
+        default:
+            print("USer selected some other action")
+        }
+
+//        let id = response.notification.request.identifier
+//
+//        let folders = TodoStoreManager.shared.fetchAll()
+//
+//        var listDocument: ListDocument?
+//
+//        for folder in folders {
+//            if folder.id!.uuidString == id {
+//                listDocument = folder
+//                break
+//            }
+//        }
+//
+//        let todoListView = TodoListView(folder: listDocument).environmentObject(TodoListModel.shared)
+//        let todoListController = UIHostingController(rootView: todoListView)
+//
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//        let navigationController = UINavigationController()
+//
+//        // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
+//        // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
+//        let contentView = ContentView().environment(\.managedObjectContext, context).environmentObject(TodoListModel.shared)
+//
+//        let contentViewController = UIHostingController(rootView: contentView)
+//
+//        navigationController.pushViewController(contentViewController, animated: true)
+//        navigationController.pushViewController(todoListController, animated: true)
+
     }
 }

@@ -49,7 +49,7 @@ class TodoListModel: ObservableObject {
     func addTodoListItem(list: ListDocument, title: String, dueDate: Date, isPending: Bool, completion: @escaping (TodoItem?) -> Void) {
         let item = todoStoreManager.insertTodoItemInList(list: list, title: title, isPending: isPending, dueDate: dueDate)
         if let _item = item {
-            notificationManager.scheduleNotification(todoItem: _item)
+            notificationManager.scheduleNotification(todoItem: _item, list: list)
         }
         fetchTodoItems(for: list)
         completion(item)
@@ -69,7 +69,7 @@ class TodoListModel: ObservableObject {
             guard let self = self else { return }
             print("Editing saved = ", saved)
             self.notificationManager.removeNotification(id: item.id!.uuidString)
-            self.notificationManager.scheduleNotification(todoItem: item)
+            self.notificationManager.scheduleNotification(todoItem: item, list: list)
             self.fetchTodoItems(for: list)
             completion(saved)
         }

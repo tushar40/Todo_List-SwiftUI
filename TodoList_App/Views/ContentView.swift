@@ -21,20 +21,20 @@ struct ContentView: View {
             ZStack {
                 List {
                     Section(header: Text("Add a new Document?")) {
-                        HStack {
-//                        CustomView(presentAlert: $presentAlert)
-                            TextField("New Document", text: $newListDocument, onCommit: addFolder)
-                            Spacer()
-                            Button(action: {
-                                self.addFolder()
-                            }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .foregroundColor(.green)
-                                    .imageScale(.large)
-                            }
-                        }
+                        CustomView(presentAlert: $presentAlert)
+//                        HStack {
+//                            TextField("New Document", text: $newListDocument, onCommit: addFolder)
+//                            Spacer()
+//                            Button(action: {
+//                                self.addFolder()
+//                            }) {
+//                                Image(systemName: "plus.circle.fill")
+//                                    .foregroundColor(.green)
+//                                    .imageScale(.large)
+//                            }
+//                        }
+//                        .buttonStyle(BorderlessButtonStyle())
                     }
-                    .buttonStyle(BorderlessButtonStyle())
                     .font(.headline)
                     Section(header: Text("Documents")) {
                         ForEach(self.todoListModel.folderLists) { list in
@@ -74,22 +74,31 @@ struct ContentView: View {
         }
     }
     
-    private func addFolder() {
-        if newListDocument != "" {
-            todoListModel.createNewFolder(name: newListDocument) { created in
-                if created {
-                    self.newListDocument = ""
-                }
-                print("created folder = ",created)
-            }
-            
-//            UIApplication.shared.endEditing()
-            UIApplication.shared.resignFirstResponder()
-
-        } else {
-            presentAlert = true
-        }
-    }
+//    private func addFolder() {
+//        UIApplication.shared.endEditing()
+//        if newListDocument != "" {
+//            todoListModel.createNewFolder(name: newListDocument) { created in
+//                if created {
+//                    self.newListDocument = ""
+//                    self.dismissKeyboard()
+//                }
+//                print("created folder = ",created)
+//            }
+//            UIApplication.shared.resignFirstResponder()
+//
+//        } else {
+//            presentAlert = true
+//        }
+//    }
+    
+//    private func dismissKeyboard() {
+//        let windows = UIApplication.shared.windows
+//        let keyWindows = windows.filter({ $0.isKeyWindow })
+//        if !keyWindows.isEmpty {
+//            let window = keyWindows.first
+//            window?.endEditing(true)
+//        }
+//    }
 
     private func importDocument() {
         isPresented = true

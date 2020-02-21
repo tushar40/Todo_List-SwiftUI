@@ -48,6 +48,13 @@ class TodoStoreManager {
         return results ?? []
     }
     
+    func fetchAllTodos() -> [TodoItem] {
+        let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
+
+        let results = try? persistenceContainer?.viewContext.fetch(request)
+        return results ?? []
+    }
+    
     func createList(title: String) -> ListDocument? {
         guard let _backgroundContext = backGroundContext else {
                 return nil

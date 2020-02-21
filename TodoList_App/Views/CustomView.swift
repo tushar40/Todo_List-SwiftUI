@@ -13,7 +13,7 @@ struct CustomView: UIViewRepresentable {
     
     @EnvironmentObject var todoListModel: TodoListModel
     @Binding var presentAlert: Bool
-    let maxLength = 30
+    let maxLength = 40
     
     typealias UIViewType = UIStackView
     
@@ -39,7 +39,8 @@ struct CustomView: UIViewRepresentable {
         
         stackView.addArrangedSubview(textField)
         stackView.addArrangedSubview(button)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = true // flexibleWidth
+        
         return stackView
     }
     
