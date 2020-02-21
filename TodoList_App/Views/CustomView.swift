@@ -25,6 +25,7 @@ struct CustomView: UIViewRepresentable {
         textField.keyboardType = .default
         textField.returnKeyType = .done
         textField.delegate = context.coordinator
+        textField.autocorrectionType = .no
         textField.addTarget(context.coordinator.self, action: #selector(context.coordinator.textChanged(_:)), for: .editingChanged)
         
         let button = UIButton()

@@ -63,12 +63,15 @@ class NotificationManager: NSObject {
                 let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: todoItem.dueDate!)
                 
                 let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-                
-                let request = UNNotificationRequest(identifier: todoItem.id!.uuidString, content: content, trigger: trigger)
-                
-                self.notificationCenter.add(request) { error in
-                    print("Error in scheduling notification, error: ", error)
+                                
+                DispatchQueue.main.async {
+                    content.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber
+                    let request = UNNotificationRequest(identifier: todoItem.id!.uuidString, content: content, trigger: trigger)
+                    self.notificationCenter.add(request) { error in
+                        print("Error in scheduling notification, error: ", error)
+                    }
                 }
+                
             } else {
                 print("Notification permission is not granted")
             }
@@ -91,11 +94,16 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
         
         completionHandler([.alert, .badge, .sound])
     }
+
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let application = UIApplication.shared
 
         print("Notification bar tapped when app state was: ", application.applicationState.rawValue)
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.applicationIconBadgeNumber -= 1
+        }
         
         switch response.actionIdentifier {
         case NotificationAction.openAction:
@@ -116,14 +124,14 @@ extension NotificationManager: UNUserNotificationCenterDelegate {
                 if item.id!.uuidString == id {
                     item.isPending = false
                     TodoStoreManager.shared.save { _ in
-                        print("Item saved")
+                        TodoListModel.shared.fetchAllItemFolders()
                     }
                     break
                 }
             }
             
         default:
-            print("USer selected some other action")
+            print("User selected some other action")
         }
 
 //        let id = response.notification.request.identifier
